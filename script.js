@@ -12,21 +12,21 @@ function today() {
   // maxValue.setDate(maxValue.getDate() + 6);
   // myDate.min = today.toISOString().substr(0, 10);
   // myDate.max = maxValue.toISOString().substr(0, 10);
-  let main = document.querySelector('.main');
+  let dates = document.querySelector('.dates');
   for(i=0; i<=6;i++){
     let startDate = new Date();
     startDate.setDate(startDate.getDate() + i);
     let temp = startDate.toISOString().substr(0, 10);
-    main.insertAdjacentHTML('beforeend', `
-    <label class='date__button'>
-      ${temp}
-      <input type="radio" name="date" id=${temp} value=${temp}>
-    </label>
+    dates.insertAdjacentHTML('beforeend', `
+    <div class='date__button'>
+      
+      <Button type="radio" name="date" id=${temp} value=${temp}>${temp}</button>
+    </div>
   `);
   };
   let datePicker = document.querySelectorAll('.date__button');
   datePicker.forEach(element => {
-    element.addEventListener('input',function(){
+    element.addEventListener('click',function(){
       dayValue = element.children[0].value;
       let ChooseDate = new Date(dayValue);
       let options = {

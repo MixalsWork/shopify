@@ -53,3 +53,6 @@
     flex-direction: row-reverse;
     justify-content: flex-end; */
 }
+.dates{
+    display: flex;
+}
