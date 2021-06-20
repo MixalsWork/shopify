@@ -1,19 +1,48 @@
-let myDate = document.querySelector('#myDate');
-let dayValue = '';
 let filmValue= '';
 let timeValue= '';
+let dayValue = '';
+let films = document.querySelector('.films');
+let time = document.querySelector('.time');
+let places = document.querySelector('.places');
+let buttonBox = document.querySelector('.button-box');
 
 function today() {
   let today = new Date();
   let maxValue = new Date();
-  maxValue.setDate(maxValue.getDate() + 6);
-  myDate.min = today.toISOString().substr(0, 10);
-  myDate.max = maxValue.toISOString().substr(0, 10);
+  // maxValue.setDate(maxValue.getDate() + 6);
+  // myDate.min = today.toISOString().substr(0, 10);
+  // myDate.max = maxValue.toISOString().substr(0, 10);
+  let main = document.querySelector('.main');
+  for(i=0; i<=6;i++){
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate() + i);
+    let temp = startDate.toISOString().substr(0, 10);
+    main.insertAdjacentHTML('beforeend', `
+    <label class='date__button'>
+      ${temp}
+      <input type="radio" name="date" id=${temp} value=${temp}>
+    </label>
+  `);
+  };
+  let datePicker = document.querySelectorAll('.date__button');
+  datePicker.forEach(element => {
+    element.addEventListener('input',function(){
+      dayValue = element.children[0].value;
+      let ChooseDate = new Date(dayValue);
+      let options = {
+        weekday: 'long'
+      };
+      dayValue = new Intl.DateTimeFormat('en-EN', options).format(ChooseDate);
+      renderFilms();
+      time.innerHTML = '';
+      places.innerHTML = '';
+      buttonBox.innerHTML = '';
+    })
+  });
 }
-today() // Выставляем максимальный срок бронирования отталкиваясь от сегодняшней даты
+today() // Выставляем максимальный срок бронирования отталкиваясь от сегодняшней даты и создаем 7 кнопок выбора даты
 
 function renderFilms() {
-  let films = document.querySelector('.films');
   films.innerHTML = '';
   films.insertAdjacentHTML('afterbegin', `
         <label class="film">
@@ -36,7 +65,6 @@ function renderFilms() {
 } // функция чистки елемента фильми и перерендринега его 
 
 function renderTime(){
-  let time = document.querySelector('.time');
       time.innerHTML = '';
       time.insertAdjacentHTML('afterbegin', `
             <label class='time__ex'>
@@ -83,7 +111,6 @@ function renderTime(){
 } // чистим елемент Время и рендерим его и добавляя обработчики событий
 
 function renderPlaces(){
-  let places = document.querySelector('.places');
   let placesReserved = Object.values(JSON.parse(localStorage.getItem(JSON.stringify({"day":dayValue,"film":filmValue,"time":timeValue}))));
   places.innerHTML = '';
   let placeNumber = 0;
@@ -109,7 +136,6 @@ function renderPlaces(){
 }; // Чистим елемент Места и рендерим туда места отталкиваясь от занятых\свободных мест
 
 function addButttonReseved(){
-  let buttonBox = document.querySelector('.button-box');
   buttonBox.innerHTML = '';
   buttonBox.insertAdjacentHTML('beforeend', `
           <button class="button__reserved">Reserved</button>
@@ -145,18 +171,27 @@ function reserved(){
     renderPlaces()
 } // Меняем Куки и резервируем места таким образом и еще раз обновляем содержимое мест что-бы было видно что они зарезезервилоись
 
-myDate.addEventListener('input', function () {
-  let chooseDate = new Date(myDate.value);
-  let weekday = chooseDate.getDay();
-  let options = {
-    weekday: 'long'
-  };
-  renderFilms()
-  dayValue = new Intl.DateTimeFormat('en-EN', options).format(chooseDate);
-}) // при выборе даты показываються фильмы на которые можно пойти , при смене даты чиситить елемент и показываються новые
+// myDate.addEventListener('input', function () {
+//   let chooseDate = new Date(myDate.value);
+//   console.log(myDate.value);
+//   console.log(dayValue);
+//   let newChooseDate = new Date(dayValue);
+//   let weekday = chooseDate.getDay();
+//   let options = {
+//     weekday: 'long'
+//   };
+//   renderFilms()
+//   dayValue = new Intl.DateTimeFormat('en-EN', options).format(chooseDate);
+//   dayValue = new Intl.DateTimeFormat('en-EN', options).format(newChooseDate);
+//   console.log(chooseDate)
+//   console.log(newChooseDate);
+//   console.log(myDate.value);
+//   console.log(dayValue)
+//   console.log(dayValue)
+// }) // при выборе даты показываються фильмы на которые можно пойти , при смене даты чиситить елемент и показываються новые
 // Вешаем обработчик событий для получения дня недели , от дня недели у меня будут меняться фильмы для сеансов
 
 
 //Хочу сказать что я отталкивался от того что мой JSON файл это не база билетов а изаначально база дней-фильмов-сеансов и свободных мест 
 // куда в свою очередь и попадали бы занятые места , а там уже внутри каждого места был бы билет ( имя фамиля и тп тп );
-//На мое мнение как-то все коряво но работает , спасибо за интерестное задание на функцыонал ушло примерно 8 часов 
+//На мое мнение как-то все коряво но работает , спасибо за интерестное задание на функцыонал ушло примерно 8 часов  + 2 часа замены инпута даты  на инпут радио ( так как не знал что он не работает на сафари)
