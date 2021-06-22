@@ -1,3 +1,37 @@
+.main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 3rem;
+}
+.dates{
+    padding-bottom: 3rem;
+}
+.date__button-box{
+    margin-right: 20px;
+}
+.date__button:last-child{
+    margin-right: 0;
+}
+.date__button{
+    cursor: pointer;
+    padding: 0 16px;
+    line-height: 36px;
+    background-color:#2BBBAD;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    transition: all ease 0.2s;
+}
+.date__button:hover{
+    background-color: #a8c8c5;
+}
+
+.date__button-active{
+    border-radius: 20px;
+    background-color: #E57373;
+}
 .places{
     display: flex;
     padding: 20px 20px;
@@ -5,13 +39,14 @@
 .places input{
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
 }
 .places input:disabled::before{
     position: relative;
     display: block;
     width: 2rem;
     height: 2rem;
-    content: "";
+    content: url(./img/user.svg);
     background: red;
 }
 .myDate{
@@ -27,32 +62,57 @@
     width: 0;
     height: 0;
   }
-  
- 
 .films [type=radio] + img {
     cursor: pointer;
-  }
-  
+    border: 2px solid black;
+    transition: all ease 0.2s;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
 
+  }
 .films [type=radio]:checked + img {
-    outline: 2px solid #f00;
+    border: 2px solid #E57373;
+    border-radius: 20px;
   }
-
 .film img{
-    max-height: 20rem;
+    max-height: 12rem;
 }
 .time label{
-    border: 2px solid black;
+    cursor: pointer;
+    background-color:#2BBBAD;
+    color: #ffffff;
+    padding: 0 16px;
+    margin-right: 2px;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+}
+.time label input{
     cursor: pointer;
 }
-.time [type=radio]:checked {
-    background-color: pink;
+.button__reserved{
+    cursor: pointer;
+    padding: 0 16px;
+    line-height: 36px;
+    background-color:#2BBBAD;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    transition: all ease 0.2s;
 }
-.places{
-    /* display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end; */
+.button__reserved:hover{
+    background-color: #a8c8c5;
 }
 .dates{
     display: flex;
 }
+@media screen and (max-width: 900px) {
+    .date__button{
+        padding: 0;
+    }
+    .time{
+        display: flex;
+        
+    }
+    .time label{
+       padding: 0;
+    }
+  }
